@@ -1,0 +1,11 @@
+-cp src
+-main Main
+-lib tink_core thx.core mweb
+-js main.js
+-cmd node main.js
+#--next
+#-cp src
+#-main Main
+#-lib tink_core thx.core
+#-neko main.n
+#-cmd neko main.n
