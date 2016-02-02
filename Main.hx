@@ -3,7 +3,7 @@ import mweb.Dispatcher;
 using thx.Functions;
 
 
-
+@:keep
 class Route2 extends mweb.Route<Future<String>> {
 
   @:skip
@@ -20,6 +20,7 @@ class Route2 extends mweb.Route<Future<String>> {
   }
 }
 
+@:keep
 class Main extends mweb.Route<Future<String>> {
 
   static function dispatch<T>(method,uri,obj:{},r:mweb.Route<T>) {

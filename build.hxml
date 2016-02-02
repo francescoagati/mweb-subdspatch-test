@@ -3,6 +3,8 @@
 -lib tink_core thx.core mweb
 -js main.js
 -cmd node main.js
+-dce full
+-D analyzer
 #--next
 #-cp src
 #-main Main
