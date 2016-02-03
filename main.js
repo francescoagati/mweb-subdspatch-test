@@ -116,14 +116,20 @@ Main.main = function() {
 	var tmp;
 	var str = "GET".toLowerCase();
 	tmp = str;
-	var ret = Main.dispatch(tmp,"hello/gina/pippo",{ },new Main());
+	var ret = Main.dispatch(tmp,"player/5",{ },new Main());
 	ret(function(s) {
 		console.log(s);
 	});
 };
 Main.__super__ = mweb_Route;
 Main.prototype = $extend(mweb_Route.prototype,{
-	anyHello: function(name,d) {
+	anyPlayer: function(player_id) {
+		player_id(function(x) {
+			console.log(x.name);
+		});
+		return tink_core__$Future_Future_$Impl_$.sync("ciaone");
+	}
+	,anyHello: function(name,d) {
 		var sub_router = new Route2();
 		var future = sub_router.trigger.future;
 		d.dispatch(sub_router);
@@ -135,6 +141,15 @@ Main.prototype = $extend(mweb_Route.prototype,{
 	,__class__: Main
 });
 Math.__name__ = true;
+var _$Player_Player_$Impl_$ = {};
+$hxClasses["_Player.Player_Impl_"] = _$Player_Player_$Impl_$;
+_$Player_Player_$Impl_$.__name__ = true;
+_$Player_Player_$Impl_$.from_string = function(id) {
+	var tmp;
+	var future = tink_core__$Future_Future_$Impl_$.sync({ name : "mario", surname : "rossi"});
+	tmp = future;
+	return tmp;
+};
 var Reflect = function() { };
 $hxClasses["Reflect"] = Reflect;
 Reflect.__name__ = true;
@@ -1113,6 +1128,21 @@ var mweb_RequestError = $hxClasses["mweb.RequestError"] = { __ename__ : true, __
 mweb_RequestError.InvalidRequest = function(message) { var $x = ["InvalidRequest",0,message]; $x.__enum__ = mweb_RequestError; $x.toString = $estr; return $x; };
 mweb_RequestError.InvalidUri = function(uri,message) { var $x = ["InvalidUri",1,uri,message]; $x.__enum__ = mweb_RequestError; $x.toString = $estr; return $x; };
 mweb_RequestError.PostSizeTooBig = function(maxSize,curSize) { var $x = ["PostSizeTooBig",2,maxSize,curSize]; $x.__enum__ = mweb_RequestError; $x.toString = $estr; return $x; };
+var tink_core__$Future_Future_$Impl_$ = {};
+$hxClasses["tink.core._Future.Future_Impl_"] = tink_core__$Future_Future_$Impl_$;
+tink_core__$Future_Future_$Impl_$.__name__ = true;
+tink_core__$Future_Future_$Impl_$._new = function(f) {
+	return f;
+};
+tink_core__$Future_Future_$Impl_$.sync = function(v) {
+	return tink_core__$Future_Future_$Impl_$._new(function(callback) {
+		callback(v);
+		return null;
+	});
+};
+var mweb_decoders_Player_$_$ = function() { };
+$hxClasses["mweb.decoders.Player__"] = mweb_decoders_Player_$_$;
+mweb_decoders_Player_$_$.__name__ = true;
 var mweb_internal__$ArrayMap_ArrayMap_$Impl_$ = {};
 $hxClasses["mweb.internal._ArrayMap.ArrayMap_Impl_"] = mweb_internal__$ArrayMap_ArrayMap_$Impl_$;
 mweb_internal__$ArrayMap_ArrayMap_$Impl_$.__name__ = true;
@@ -1189,12 +1219,6 @@ tink_core_TypedError.prototype = {
 	}
 	,__class__: tink_core_TypedError
 };
-var tink_core__$Future_Future_$Impl_$ = {};
-$hxClasses["tink.core._Future.Future_Impl_"] = tink_core__$Future_Future_$Impl_$;
-tink_core__$Future_Future_$Impl_$.__name__ = true;
-tink_core__$Future_Future_$Impl_$._new = function(f) {
-	return f;
-};
 var tink_core_FutureTrigger = function() {
 	var _g = this;
 	this.list = [];
@@ -1234,7 +1258,7 @@ if(ArrayBuffer.prototype.slice == null) ArrayBuffer.prototype.slice = js_html_co
 var DataView = $global.DataView || js_html_compat_DataView;
 var Uint8Array = $global.Uint8Array || js_html_compat_Uint8Array._new;
 Route2._dispatchDataCache = mweb_internal_DispatchData.RouteObj({ routes : [{ key : "", verb : "any", name : "any", data : mweb_internal_DispatchData.RouteFunc({ addrArgs : [], metas : [], args : null})},{ key : "pippo", verb : "any", name : "anyPippo", data : mweb_internal_DispatchData.RouteFunc({ addrArgs : [], metas : [], args : null})}]});
-Main._dispatchDataCache = mweb_internal_DispatchData.RouteObj({ routes : [{ key : "hello", verb : "any", name : "anyHello", data : mweb_internal_DispatchData.RouteFunc({ addrArgs : [{ opt : false, type : "String", name : "name", many : false},{ opt : true, type : "mweb.Dispatcher", name : "d", many : false}], metas : [], args : null})}]});
+Main._dispatchDataCache = mweb_internal_DispatchData.RouteObj({ routes : [{ key : "hello", verb : "any", name : "anyHello", data : mweb_internal_DispatchData.RouteFunc({ addrArgs : [{ opt : false, type : "String", name : "name", many : false},{ opt : true, type : "mweb.Dispatcher", name : "d", many : false}], metas : [], args : null})},{ key : "player", verb : "any", name : "anyPlayer", data : mweb_internal_DispatchData.RouteFunc({ addrArgs : [{ opt : false, type : "Player", name : "player_id", many : false}], metas : [], args : null})}]});
 haxe_io_FPHelper.i64tmp = (function($this) {
 	var $r;
 	var x = new haxe__$Int64__$_$_$Int64(0,0);
@@ -1243,6 +1267,9 @@ haxe_io_FPHelper.i64tmp = (function($this) {
 }(this));
 js_Boot.__toStr = {}.toString;
 js_html_compat_Uint8Array.BYTES_PER_ELEMENT = 1;
-mweb_Decoder.__meta__ = { obj : { abstractDefs : null}};
+mweb_Decoder.__meta__ = { obj : { abstractDefs : ["Player"]}};
+mweb_decoders_Player_$_$.data = { fromString : function(id) {
+	return _$Player_Player_$Impl_$.from_string(id);
+}};
 Main.main();
 })(typeof console != "undefined" ? console : {log:function(){}}, typeof window != "undefined" ? window : typeof global != "undefined" ? global : typeof self != "undefined" ? self : this);
