@@ -25,7 +25,7 @@ class Route2 extends mweb.Route<Future<String>> {
 @:keep
 class Main extends mweb.Route<Future<String>> {
 
-  static function dispatch<T>(method,uri,obj:{},r:mweb.Route<T>) {
+  	static function dispatch<T>(method,uri,obj:{},r:mweb.Route<T>) {
 		var d = new mweb.Dispatcher(method,uri,obj);
 		return d.dispatch(r);
 	}
@@ -34,45 +34,23 @@ class Main extends mweb.Route<Future<String>> {
 
 	public static function main() {
 
-//    var ret:Future<String> = dispatch('GET','hello/gina/pippo',{},new Main());
-    var ret:Future<String> = dispatch('GET','player/5',{},new Main());
-    ret.handle(function(s) trace(s));
+	//    var ret:Future<String> = dispatch('GET','hello/gina/pippo',{},new Main());
+	    var ret:Future<String> = dispatch('GET','player/5',{},new Main());
+	    ret.handle(function(s) trace(s));
 
-		//var request = new mweb.http.webstd.Request(); // works for neko.Web and php.Web
-		//var d = mweb.Dispatcher.createWithRequest(request);
-		//var ret = d.dispatch(new HelloRoute());
-		//Sys.print(ret);
+
 	}
 
-  public function anyPlayer(player_id:Player) {
-    player_id.handle(function(x) trace(x.name));
-    return Future.sync('ciaone');
-  }
+	public function anyPlayer(player_id:Player) {
+	   player_id.handle(function(x) trace(x.name));
+	   return Future.sync('ciaone');
+	}
 
 	public function anyHello(name:String,?d:Dispatcher<Future<String>>) {
-
-    var sub_router = new Route2();
-    var future = sub_router.trigger.asFuture();
-    d.dispatch(sub_router);
-    return future;
-    //var trigger = Future.trigger();
-		//trigger.trigger('<h1>Hello, $name!</h1>');
-    //return trigger.asFuture();
-	}
-/*
-	public function any():String
-	{
-		return '<p>Welcome to the first example of mweb!</p>' +
-			'<p>In order to test it, change your browser location to point to <code>/hello/yourname</code> <a href="/hello/user">like this</a></p>';
+	    var sub_router = new Route2();
+	    var future = sub_router.trigger.asFuture();
+	    d.dispatch(sub_router);
+	    return future;
 	}
 
-	private function willNotBeRoute():Void
-	{
-	}
-
-	@:skip public function willNotBeRouteEither():Int
-	{
-		return 1;
-	}
-  */
 }
